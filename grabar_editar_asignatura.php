@@ -20,7 +20,6 @@ function validarDatosRegistro() {
     $datos[2] = (isset($_REQUEST['nota']))?
             $_REQUEST['nota']:"";
 
-    
     //-----validar ---- //
     $errores = Array();
     $errores[0] = !validarNombre($datos[0]);
@@ -32,7 +31,7 @@ function validarDatosRegistro() {
     $_SESSION['errores'] = $errores;
     $_SESSION['hayErrores'] =
             ($errores[0] || $errores[1]
-             || $errores [2]);
+            || $errores[2]);
     
 }
 
@@ -40,25 +39,32 @@ function validarDatosRegistro() {
 // PRINCIPAL //
 validarDatosRegistro();
 if ($_SESSION['hayErrores']) {
-    $url = "formulario_nueva_asignatura.php";
+    $url = "formulario_editar_asignatura.php";
     header('Location:'.$url);
 } else {
+
     $db = conectaBd();
     $nombre = $_SESSION['datos'][0];
     $profesor = $_SESSION['datos'][1];
     $nota = $_SESSION['datos'][2];
+
+   
     
+    $consulta = "UPDATE asignatura
+                  set Profesor = :profesor,
+                  Nota= :nota
+                  WHERE Nombre= :nombre";
     
-    $consulta = "INSERT INTO asignatura
-(nombre, profesor, nota)
-VALUES (:nombre, :profesor, :nota)";
     $resultado = $db->prepare($consulta);
-    if ($resultado->execute(array(":nombre" => $nombre, ":profesor" => $profesor, ":nota" => $nota))) {
-        unset($_SESSION['datos']);
-        unset($_SESSION['errores']);
-        unset($_SESSION['hayErrores']);
-        $url = "listado_asignaturas.php";
-        header('Location:'.$url);
+    if ($resultado->execute(array(":profesor" => $profesor,
+        ":nota" => $nota,
+        ":nombre" => $nombre))) {
+            unset ($_SESSION['datos']);
+            unset ($_SESSION['errores']);
+            unset ($_SESSION['hayErrores']);
+            $_SESSION['nombre'] = 0;
+            $url = "listado_asignaturas.php";
+            header('Location:'.$url);
     } else {
         print "<p>Error al crear el registro.</p>\n";
     }

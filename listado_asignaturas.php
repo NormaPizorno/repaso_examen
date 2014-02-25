@@ -34,11 +34,12 @@ and open the template in the editor.
                     echo "<td>".$registro['Nombre']."</td>";
                     echo "<td>".$registro['Profesor']."</td>";
                     echo "<td>".$registro['Nota']."</td>";
-                    $destino="formulario_editar_asignatura.php?nombre=".$registro['nombre'];
-                    echo "<a href=".$destino.">Editar asignatura</a></td>";
+                    
+                    $destino="formulario_editar_asignatura.php?nombre=".$registro['Nombre'];
+                    
                     echo "<td>";
-                    $destino="confirmar_eliminar_asignatura?nombre=".$registro['id'];
-                    echo "<a href=".$destino."> Borrar asignatura </a></td>";
+                    echo "<a href=".$destino.">Editar asignatura</a></td>";
+                    echo "</td>";
                     echo "</tr>";
                    
                 }

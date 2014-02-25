@@ -6,12 +6,12 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>INVENTARIO 2</title>
+        <title>Asignaturas</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
     </head>
     <body>
-        <div>INVENTARIO 2</div>
+        <div>Asignaturas</div>
         <div><a href="listado_asignaturas.php">Acceso a Listado de asignaturas</a> </div>
     </body>
 </html>
